@@ -2,12 +2,34 @@ import { Request, Response } from 'express';
 import IResponse from '../interfaces/response';
 import Drug from '../repositories/Drug';
 
-let RESPONSE: IResponse = {
+const RESPONSE: IResponse = {
   service: 'drug service',
 };
 
 const getAllDrug = async (request: Request, response: Response) => {
-  const { page, take } = request.query;
+  const { page, take, title } = request.query;
+
+  if (title) {
+    const { drugs, totalData } = await Drug.getByTitle(title as string);
+
+    if (totalData < 1) {
+      return response.status(400).json({
+        ...RESPONSE,
+        status: 'error',
+        message: `${title} not contain on drug database`,
+        request: { ...request.query },
+        response: { total: null, data: null },
+      });
+    }
+
+    return response.status(200).json({
+      ...RESPONSE,
+      status: 'success',
+      message: `get drug by title ${title}`,
+      request: { ...request.query },
+      response: { total: totalData, data: drugs },
+    });
+  }
 
   if (page && parseInt(page as string) < 1) {
     return response.status(400).json({
@@ -15,9 +37,8 @@ const getAllDrug = async (request: Request, response: Response) => {
       status: 'error',
       message: 'page number must greater than 1',
       response: {
-        data: null,
-        page: null,
         total: null,
+        data: null,
       },
       request: null,
     });
@@ -36,11 +57,6 @@ const getAllDrug = async (request: Request, response: Response) => {
         message: 'drugs not found',
         response: {
           total: null,
-          page: {
-            current: null,
-            next: null,
-            prev: null,
-          },
           data: null,
         },
 
@@ -51,7 +67,7 @@ const getAllDrug = async (request: Request, response: Response) => {
     return response.status(200).json({
       ...RESPONSE,
       status: 'success',
-      message: `get all data on page ${skip} content ${content}`,
+      message: `get all drug on page ${skip} content ${content}`,
       request: {
         ...request.query,
       },
@@ -72,11 +88,10 @@ const getAllDrug = async (request: Request, response: Response) => {
   return response.status(200).json({
     ...RESPONSE,
     status: 'success',
-    message: 'get all data',
+    message: 'get all drug',
     request: null,
     response: {
       total: totalData,
-      page: { current: null, next: null, prev: null },
       data: drugs,
     },
   });
