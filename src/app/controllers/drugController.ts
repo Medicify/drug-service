@@ -140,8 +140,56 @@ const getAllDrug = async (request: Request, response: Response) => {
   });
 };
 
+const getDrug = async (request: Request, response: Response) => {
+  const { id } = request.params;
+
+  if (!id)
+    return response.status(400).json({
+      ...RESPONSE,
+      status: 'error',
+      message: `require ID`,
+      request: {
+        ...request.params,
+      },
+      response: {
+        total: null,
+        data: null,
+      },
+    });
+
+  const { drugs, totalData } = await Drug.getByID(id as string);
+
+  if (!drugs)
+    return response.status(400).json({
+      ...RESPONSE,
+      status: 'error',
+      message: `${id} not found`,
+      request: {
+        ...request.params,
+      },
+      response: {
+        total: null,
+        data: null,
+      },
+    });
+
+  return response.status(200).json({
+    ...RESPONSE,
+    status: 'success',
+    message: `get drug id ${id}`,
+    request: {
+      ...request.params,
+    },
+    response: {
+      total: totalData,
+      data: drugs,
+    },
+  });
+};
+
 const drugController = {
   drugs: getAllDrug,
+  drug: getDrug,
 };
 
 export default drugController;

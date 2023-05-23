@@ -90,12 +90,26 @@ const getDrugByCategoryAndTitle = async (category: string, title: string) => {
   return { drugs, totalData };
 };
 
+const getDrugByID = async (id: string) => {
+  const drugs = await database.drugs.findFirst({
+    orderBy: {
+      title: 'asc',
+    },
+    where: {
+      id,
+    },
+  });
+  const totalData = 1;
+  return { drugs, totalData };
+};
+
 const Drug = {
   getAll: getAllDrugs,
   getByPagination: getDrugsByPagination,
   getByTitle: getDrugByTitle,
   getByCategory: getDrugByCategory,
   getByCategoryTitle: getDrugByCategoryAndTitle,
+  getByID: getDrugByID,
 };
 
 export default Drug;
