@@ -7,7 +7,50 @@ const RESPONSE: IResponse = {
 };
 
 const getAllDrug = async (request: Request, response: Response) => {
-  const { page, take, title } = request.query;
+  const { page, take, title, category } = request.query;
+
+  if (category && title) {
+    const { drugs, totalData } = await Drug.getByCategoryTitle(
+      category as string,
+      title as string
+    );
+    if (totalData < 1) {
+      return response.status(400).json({
+        ...RESPONSE,
+        status: 'error',
+        message: `${category} and ${title} not contain on drug database`,
+        request: { ...request.query },
+        response: { total: null, data: null },
+      });
+    }
+    return response.status(200).json({
+      ...RESPONSE,
+      status: 'success',
+      message: `get drug by category ${category} and title ${title}`,
+      request: { ...request.query },
+      response: { total: totalData, data: drugs },
+    });
+  }
+
+  if (category) {
+    const { drugs, totalData } = await Drug.getByCategory(category as string);
+    if (totalData < 1) {
+      return response.status(400).json({
+        ...RESPONSE,
+        status: 'error',
+        message: `${category} not contain on drug database`,
+        request: { ...request.query },
+        response: { total: null, data: null },
+      });
+    }
+    return response.status(200).json({
+      ...RESPONSE,
+      status: 'success',
+      message: `get drug by category ${category}`,
+      request: { ...request.query },
+      response: { total: totalData, data: drugs },
+    });
+  }
 
   if (title) {
     const { drugs, totalData } = await Drug.getByTitle(title as string);

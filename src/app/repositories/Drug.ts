@@ -42,10 +42,60 @@ const getDrugByTitle = async (title: string) => {
   return { drugs, totalData };
 };
 
+const getDrugByCategory = async (category: string) => {
+  const drugs = await database.drugs.findMany({
+    orderBy: {
+      title: 'asc',
+    },
+    where: {
+      OR: [
+        {
+          title: {
+            contains: category,
+          },
+        },
+        {
+          package: {
+            contains: category,
+          },
+        },
+      ],
+    },
+  });
+  const totalData = drugs.length;
+  return { drugs, totalData };
+};
+
+const getDrugByCategoryAndTitle = async (category: string, title: string) => {
+  const drugs = await database.drugs.findMany({
+    orderBy: {
+      title: 'asc',
+    },
+    where: {
+      AND: [
+        {
+          title: {
+            contains: title,
+          },
+        },
+        {
+          title: {
+            contains: category,
+          },
+        },
+      ],
+    },
+  });
+  const totalData = drugs.length;
+  return { drugs, totalData };
+};
+
 const Drug = {
   getAll: getAllDrugs,
   getByPagination: getDrugsByPagination,
   getByTitle: getDrugByTitle,
+  getByCategory: getDrugByCategory,
+  getByCategoryTitle: getDrugByCategoryAndTitle,
 };
 
 export default Drug;
