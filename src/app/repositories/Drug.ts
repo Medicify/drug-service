@@ -50,18 +50,9 @@ const getDrugByCategory = async (category: string) => {
       title: 'asc',
     },
     where: {
-      OR: [
-        {
-          title: {
-            contains: category,
-          },
-        },
-        {
-          package: {
-            contains: category,
-          },
-        },
-      ],
+      type: {
+        contains: category,
+      },
     },
   });
   const totalData = drugs.length;
@@ -81,7 +72,7 @@ const getDrugByCategoryAndTitle = async (category: string, title: string) => {
           },
         },
         {
-          title: {
+          type: {
             contains: category,
           },
         },
