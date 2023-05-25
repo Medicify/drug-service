@@ -1,7 +1,7 @@
 import database from '../config/database';
 
 const getAllDrugs = async () => {
-  let drugs = await database.drugs.findMany({
+  const drugs = await database.drugs.findMany({
     orderBy: {
       title: 'asc',
     },
