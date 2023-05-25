@@ -1,4 +1,4 @@
-FROM node:16.14.2-slim AS base
+FROM node:18.14.2-slim AS base
 
 RUN apt-get update
 
@@ -10,8 +10,14 @@ FROM base AS builder
 # Install devDep & dep
 COPY package.json ./
 COPY yarn.lock ./
+COPY prisma ./server-node-ts
 
 RUN yarn install --development
+
+
+RUN yarn init
+RUN yarn prisma db pull 
+RUN yarn generate
 
 COPY tsconfig.json ./
 COPY src ./src
@@ -24,9 +30,13 @@ FROM base AS production
 COPY package*.json /server-node-ts/
 COPY yarn*.lock /server-node-ts/
 
+
 RUN yarn install --production
 
 COPY --from=builder /server-node-ts/build /server-node-ts/build
+COPY --from=builder /server-node-ts/prisma /server-node-ts/prisma
+COPY --from=builder /server-node-ts/public /server-node-ts/public
+
 
 
 CMD ["node", "build/server.js"]

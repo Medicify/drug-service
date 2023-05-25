@@ -11,6 +11,7 @@ model drugs {
   id                String  @id @default(dbgenerated("(uuid())")) @db.VarChar(32)
   image             String? @db.VarChar(255)
   title             String? @db.VarChar(255)
+  type              String? @db.VarChar(255)
   product_url       String? @unique(map: "product_url") @db.VarChar(255)
   description       String? @db.Text
   indication        String? @db.Text
