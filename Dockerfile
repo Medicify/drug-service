@@ -17,7 +17,7 @@ RUN yarn install --development
 COPY prisma ./prisma
 COPY .env .env
 RUN yarn prisma db pull 
-RUN yarn generate
+RUN yarn prisma generate
 
 COPY tsconfig.json ./
 COPY src ./src
