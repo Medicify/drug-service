@@ -10,12 +10,12 @@ FROM base AS builder
 # Install devDep & dep
 COPY package.json ./
 COPY yarn.lock ./
-COPY prisma ./server-node-ts
 
 
 RUN yarn install --development
 
 RUN yarn prisma init
+COPY prisma ./server-node-ts
 COPY .env .env
 RUN yarn prisma db pull 
 RUN yarn generate
