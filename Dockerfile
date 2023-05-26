@@ -32,10 +32,11 @@ COPY yarn*.lock /server-node-ts/
 
 
 RUN yarn install --production
+COPY --from=builder /server-node-ts/prisma /server-node-ts/prisma
 RUN yarn prisma generate
 
 COPY --from=builder /server-node-ts/build /server-node-ts/build
-COPY --from=builder /server-node-ts/prisma /server-node-ts/prisma
+
 COPY --from=builder /server-node-ts/public /server-node-ts/public
 COPY --from=builder /server-node-ts/.env /server-node-ts/.env
 
