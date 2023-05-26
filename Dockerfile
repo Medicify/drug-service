@@ -14,7 +14,7 @@ COPY yarn.lock ./
 
 RUN yarn install --development
 
-COPY prisma ./server-node-ts
+COPY prisma ./server-node-ts/prisma
 COPY .env .env
 RUN yarn prisma db pull 
 RUN yarn generate
