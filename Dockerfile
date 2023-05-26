@@ -40,6 +40,6 @@ COPY --from=builder /server-node-ts/public /server-node-ts/public
 COPY --from=builder /server-node-ts/.env /server-node-ts/.env
 
 
-
+EXPOSE 5000
 CMD ["node", "build/server.js"]
 
