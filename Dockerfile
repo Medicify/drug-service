@@ -17,7 +17,7 @@ RUN yarn install --development
 COPY prisma ./prisma
 COPY .env .env
 RUN yarn prisma db pull 
-RUN yarn prisma generate
+
 
 COPY tsconfig.json ./
 COPY src ./src
@@ -32,6 +32,7 @@ COPY yarn*.lock /server-node-ts/
 
 
 RUN yarn install --production
+RUN yarn prisma generate
 
 COPY --from=builder /server-node-ts/build /server-node-ts/build
 COPY --from=builder /server-node-ts/prisma /server-node-ts/prisma
