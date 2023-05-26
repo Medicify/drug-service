@@ -14,7 +14,6 @@ COPY yarn.lock ./
 
 RUN yarn install --development
 
-RUN yarn prisma init
 COPY prisma ./server-node-ts
 COPY .env .env
 RUN yarn prisma db pull 
