@@ -12,10 +12,11 @@ COPY package.json ./
 COPY yarn.lock ./
 COPY prisma ./server-node-ts
 
+
 RUN yarn install --development
 
-
 RUN yarn init
+COPY .env .env
 RUN yarn prisma db pull 
 RUN yarn generate
 
@@ -36,6 +37,7 @@ RUN yarn install --production
 COPY --from=builder /server-node-ts/build /server-node-ts/build
 COPY --from=builder /server-node-ts/prisma /server-node-ts/prisma
 COPY --from=builder /server-node-ts/public /server-node-ts/public
+COPY --from=builder /server-node-ts/.env /server-node-ts/.env
 
 
 
