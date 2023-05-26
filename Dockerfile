@@ -15,7 +15,7 @@ COPY prisma ./server-node-ts
 
 RUN yarn install --development
 
-RUN yarn init
+RUN yarn prisma init
 COPY .env .env
 RUN yarn prisma db pull 
 RUN yarn generate
