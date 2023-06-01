@@ -1,5 +1,7 @@
 import database from '../config/database';
 
+const patternTitle = /[-\s\d.]/
+
 const getAllDrugs = async () => {
   const drugs = await database.drugs.findMany({
     orderBy: {
@@ -7,6 +9,11 @@ const getAllDrugs = async () => {
     },
   });
 
+  drugs.forEach((drug : any, index: number) => {
+    drugs[index].title =  drug.title.split(patternTitle)[0] 
+  })
+
+  
   const totalData = drugs.length;
 
   return { drugs, totalData };
@@ -22,6 +29,11 @@ const getDrugsByPagination = async (page = 1, content = 10) => {
     },
     take: content,
   });
+
+  drugs.forEach((drug : any, index: number) => {
+    drugs[index].title =  drug.title.split(patternTitle)[0] 
+  })
+
 
   const totalData = drugs.length;
 
@@ -39,6 +51,11 @@ const getDrugByTitle = async (title: string) => {
       },
     },
   });
+
+  drugs.forEach((drug : any, index: number) => {
+    drugs[index].title =  drug.title.split(patternTitle)[0] 
+  })
+
   const totalData = drugs.length;
 
   return { drugs, totalData };
@@ -55,6 +72,11 @@ const getDrugByCategory = async (category: string) => {
       },
     },
   });
+
+  drugs.forEach((drug : any, index: number) => {
+    drugs[index].title =  drug.title.split(patternTitle)[0] 
+  })
+
   const totalData = drugs.length;
   return { drugs, totalData };
 };
@@ -79,6 +101,11 @@ const getDrugByCategoryAndTitle = async (category: string, title: string) => {
       ],
     },
   });
+
+  drugs.forEach((drug : any, index: number) => {
+    drugs[index].title =  drug.title.split(patternTitle)[0] 
+  })
+
   const totalData = drugs.length;
   return { drugs, totalData };
 };
@@ -92,6 +119,12 @@ const getDrugByID = async (id: string) => {
       id,
     },
   });
+
+  if(drugs) {
+    drugs.title = drugs.title &&  drugs.title.split(patternTitle)[0] 
+  }
+ 
+
   const totalData = 1;
   return { drugs, totalData };
 };
