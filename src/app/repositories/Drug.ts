@@ -1,6 +1,6 @@
 import database from '../config/database';
 
-const patternTitle = /[\s\d.]/
+const patternTitle = /[\d.]/
 
 const getAllDrugs = async () => {
   const drugs = await database.drugs.findMany({
