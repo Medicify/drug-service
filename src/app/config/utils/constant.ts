@@ -1,10 +1,13 @@
 import path from 'path';
+import dotenv from 'dotenv'
 
+
+dotenv.config();
 // Configure PORT
 export const PORT: undefined | number | string = process.env.PORT || 5000;
 
 // Configure Base URL (Server serve the URL)
-export const BASE_URL = `http://localhost:${PORT}`;
+export const BASE_URL = `${process.env.BASE_URL}`;
 
 // Configure Asset URL (Static Files)
 export const ASSET_URL = `${BASE_URL}/assets`;

@@ -1,9 +1,9 @@
 import database from '../config/database';
-
+import { ASSET_URL } from '../config/utils/constant';
 const patternTitle = /[\d.]/
 
 const getAllDrugs = async () => {
-  const drugs = await database.drugs.findMany({
+  const drugs : any = await database.drugs.findMany({
     orderBy: {
       title: 'asc',
     },
@@ -11,6 +11,7 @@ const getAllDrugs = async () => {
 
   drugs.forEach((drug : any, index: number) => {
     drugs[index].title =  drug.title.split(patternTitle)[0] 
+    drugs[index]["custom_image"] = drug.type && `${ASSET_URL}/${drug.type.toLowerCase()}.png`;
   })
 
   
