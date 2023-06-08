@@ -2,7 +2,7 @@ FROM node:18.14.2-slim AS base
 
 RUN apt-get update
 
-WORKDIR /server-node-ts
+WORKDIR /drug-service
 
 # build the code
 FROM base AS builder
@@ -25,18 +25,18 @@ RUN yarn run build
 
 FROM base AS production
 
-COPY package*.json /server-node-ts/
-COPY yarn*.lock /server-node-ts/
+COPY package*.json /drug-service/
+COPY yarn*.lock /drug-service/
 
 
 RUN yarn install --production   
-COPY prisma /server-node-ts/prisma
+COPY prisma /drug-service/prisma
 RUN yarn prisma generate
 
-COPY --from=builder /server-node-ts/build /server-node-ts/build
+COPY --from=builder /drug-service/build /drug-service/build
 
-COPY --from=builder /server-node-ts/public /server-node-ts/public
-COPY --from=builder /server-node-ts/.env /server-node-ts/.env
+COPY --from=builder /drug-service/public /drug-service/public
+COPY --from=builder /drug-service/.env /drug-service/.env
 
 
 EXPOSE 5000
