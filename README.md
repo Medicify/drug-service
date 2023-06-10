@@ -1,3 +1,4 @@
+
 # Node Typescript Drug Service
 
 This is a server node with typescript for the capstone medicify project, this service is used to retrieve drug data in the database
@@ -68,6 +69,20 @@ Retrieve all drug data
 | :-------- | :------- | :------------ |
 | `drugs`   | `string` | **Required**. |
 
+Example Response
+
+```http
+ "service": "drug service",
+  "status": "success",200 ok
+  "message": "get all drug",
+  "request": null,
+  "response": {
+    "total": 883,
+    "data": [ example data
+       ]
+  }
+```
+
 ## GET drugs by name
 
 Displays drug data by name
@@ -79,6 +94,24 @@ Displays drug data by name
 | Parameter | Type     | Description                          |
 | :-------- | :------- | :----------------------------------- |
 | `title`   | `string` | **Required**. title of item to fetch |
+
+Example Response
+
+```http
+{
+  "service": "drug service",
+  "status": "success",
+  "message": "get drug by title paracetamol",
+  "request": {
+    "title": "paracetamol"
+  },
+  "response": {
+    "total": 2,
+    "data": [ example data
+       ] }
+  }
+
+```
 
 ## GET drugs by categori
 
@@ -92,6 +125,22 @@ Displays drug data by category
 | :--------- | :------- | :-------------------------------------- |
 | `category` | `string` | **Required**. category of item to fetch |
 
+Example Response
+
+```http
+{
+  "service": "drug service",
+  "status": "success",
+  "message": "get drug by category kaplet",
+  "request": {
+    "category": "kaplet"
+  },
+  "response": {
+    "total": 34,
+    "data": [example data ]
+     }}
+```
+
 ## GET drugs by categori & title
 
 Displays drug data by category and title
@@ -104,6 +153,22 @@ Displays drug data by category and title
 | :---------------- | :------- | :------------------------------------------------ |
 | `category, title` | `string` | **Required**. category and title of item to fetch |
 
+Example Response
+
+```http
+{
+  "service": "drug service",
+  "status": "success",
+  "message": "get drug by category kaplet and title paracetamol",
+  "request": {
+    "category": "kaplet",
+    "title": "paracetamol"
+  },
+  "response": {
+    "total": 2,
+    "data": [ example data] }}
+```
+
 ## GET drugs by id
 
 Displays drug data by id
@@ -115,6 +180,21 @@ Displays drug data by id
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
 | `id`      | `string` | **Required**. id of item to fetch |
+
+Example Response
+
+```http
+{
+  "service": "drug service",
+  "status": "success",
+  "message": "get drug id 50112435-fad0-11ed-80ab-1063c8cf",
+  "request": {
+    "id": "50112435-fad0-11ed-80ab-1063c8cf"
+  },
+  "response": {
+    "total": 1,
+    "data": {[ example data] }}}
+```
 
 ## GET drugs page & tage (pagination)
 
@@ -129,6 +209,27 @@ Displays drug data per page each page contains 10 data
 | `page`    | `string` | **Required**. page of item to fetch |
 | `take`    | `string` | **Required**. take of item to fetch |
 
+Example Response
+
+```http
+{
+  "service": "drug service",
+  "status": "success",
+  "message": "get all drug on page 1 content 10",
+  "request": {
+    "page": "1",
+    "take": "10"
+  },
+  "response": {
+    "total": 10,
+    "page": {
+      "current": 1,
+      "next": 2,
+      "prev": null
+    },
+    "data": [ example data] }}
+```
+
 ## GET drugs only page
 
 Displays drug data per page
@@ -141,6 +242,26 @@ Displays drug data per page
 | :-------- | :------- | :---------------------------------- |
 | `page`    | `string` | **Required**. page of item to fetch |
 
+Example Response
+
+```http
+{
+  "service": "drug service",
+  "status": "success",
+  "message": "get all drug on page 1 content 10",
+  "request": {
+    "page": "1"
+  },
+  "response": {
+    "total": 10,
+    "page": {
+      "current": 1,
+      "next": 2,
+      "prev": null
+    },
+    "data": [ example data] }}
+```
+
 ## GET drugs only take
 
 Display drug data only a certain amount
@@ -152,6 +273,26 @@ Display drug data only a certain amount
 | Parameter | Type     | Description                         |
 | :-------- | :------- | :---------------------------------- |
 | `take`    | `string` | **Required**. take of item to fetch |
+
+Example Response
+
+```http
+{
+  "service": "drug service",
+  "status": "success",
+  "message": "get all drug on page 1 content 100",
+  "request": {
+    "take": "100"
+  },
+  "response": {
+    "total": 100,
+    "page": {
+      "current": 1,
+      "next": 2,
+      "prev": null
+    },
+    "data": [ example data] }}
+```
 
 ## Documentation
 
