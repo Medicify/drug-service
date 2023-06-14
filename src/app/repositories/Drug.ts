@@ -1,20 +1,20 @@
 import database from '../config/database';
 import { ASSET_URL } from '../config/utils/constant';
-const patternTitle = /[\d.]/
+const patternTitle = /[\d.]/;
 
 const getAllDrugs = async () => {
-  const drugs : any = await database.drugs.findMany({
+  const drugs: any = await database.drugs.findMany({
     orderBy: {
       title: 'asc',
     },
   });
 
-  drugs.forEach((drug : any, index: number) => {
-    drugs[index].title =  drug.title.split(patternTitle)[0] 
-    drugs[index]["custom_image"] = drug.type && `${ASSET_URL}/${drug.type.toLowerCase()}.png`;
-  })
+  drugs.forEach((drug: any, index: number) => {
+    drugs[index].title = drug.title.split(patternTitle)[0];
+    drugs[index]['custom_image'] =
+      drug.type && `${ASSET_URL}/${drug.type.toLowerCase()}.png`;
+  });
 
-  
   const totalData = drugs.length;
 
   return { drugs, totalData };
@@ -23,7 +23,7 @@ const getAllDrugs = async () => {
 const getDrugsByPagination = async (page = 1, content = 10) => {
   const skip = (page - 1) * content;
 
-  const drugs = await database.drugs.findMany({
+  const drugs: any = await database.drugs.findMany({
     skip,
     orderBy: {
       title: 'asc',
@@ -31,10 +31,11 @@ const getDrugsByPagination = async (page = 1, content = 10) => {
     take: content,
   });
 
-  drugs.forEach((drug : any, index: number) => {
-    drugs[index].title =  drug.title.split(patternTitle)[0] 
-  })
-
+  drugs.forEach((drug: any, index: number) => {
+    drugs[index].title = drug.title.split(patternTitle)[0];
+    drugs[index]['custom_image'] =
+      drug.type && `${ASSET_URL}/${drug.type.toLowerCase()}.png`;
+  });
 
   const totalData = drugs.length;
 
@@ -42,7 +43,7 @@ const getDrugsByPagination = async (page = 1, content = 10) => {
 };
 
 const getDrugByTitle = async (title: string) => {
-  const drugs = await database.drugs.findMany({
+  const drugs: any = await database.drugs.findMany({
     orderBy: {
       title: 'asc',
     },
@@ -53,9 +54,11 @@ const getDrugByTitle = async (title: string) => {
     },
   });
 
-  drugs.forEach((drug : any, index: number) => {
-    drugs[index].title =  drug.title.split(patternTitle)[0] 
-  })
+  drugs.forEach((drug: any, index: number) => {
+    drugs[index].title = drug.title.split(patternTitle)[0];
+    drugs[index]['custom_image'] =
+      drug.type && `${ASSET_URL}/${drug.type.toLowerCase()}.png`;
+  });
 
   const totalData = drugs.length;
 
@@ -63,7 +66,7 @@ const getDrugByTitle = async (title: string) => {
 };
 
 const getDrugByCategory = async (category: string) => {
-  const drugs = await database.drugs.findMany({
+  const drugs: any = await database.drugs.findMany({
     orderBy: {
       title: 'asc',
     },
@@ -74,16 +77,18 @@ const getDrugByCategory = async (category: string) => {
     },
   });
 
-  drugs.forEach((drug : any, index: number) => {
-    drugs[index].title =  drug.title.split(patternTitle)[0] 
-  })
+  drugs.forEach((drug: any, index: number) => {
+    drugs[index].title = drug.title.split(patternTitle)[0];
+    drugs[index]['custom_image'] =
+      drug.type && `${ASSET_URL}/${drug.type.toLowerCase()}.png`;
+  });
 
   const totalData = drugs.length;
   return { drugs, totalData };
 };
 
 const getDrugByCategoryAndTitle = async (category: string, title: string) => {
-  const drugs = await database.drugs.findMany({
+  const drugs: any = await database.drugs.findMany({
     orderBy: {
       title: 'asc',
     },
@@ -103,16 +108,18 @@ const getDrugByCategoryAndTitle = async (category: string, title: string) => {
     },
   });
 
-  drugs.forEach((drug : any, index: number) => {
-    drugs[index].title =  drug.title.split(patternTitle)[0] 
-  })
+  drugs.forEach((drug: any, index: number) => {
+    drugs[index].title = drug.title.split(patternTitle)[0];
+    drugs[index]['custom_image'] =
+      drug.type && `${ASSET_URL}/${drug.type.toLowerCase()}.png`;
+  });
 
   const totalData = drugs.length;
   return { drugs, totalData };
 };
 
 const getDrugByID = async (id: string) => {
-  const drugs = await database.drugs.findFirst({
+  const drugs: any = await database.drugs.findFirst({
     orderBy: {
       title: 'asc',
     },
@@ -121,10 +128,11 @@ const getDrugByID = async (id: string) => {
     },
   });
 
-  if(drugs) {
-    drugs.title = drugs.title &&  drugs.title.split(patternTitle)[0] 
+  if (drugs) {
+    drugs.title = drugs.title && drugs.title.split(patternTitle)[0];
+    drugs['custom_image'] =
+      drugs.type && `${ASSET_URL}/${drugs.type.toLowerCase()}.png`;
   }
- 
 
   const totalData = 1;
   return { drugs, totalData };
