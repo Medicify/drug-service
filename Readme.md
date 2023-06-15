@@ -1,4 +1,3 @@
-
 # Node Typescript Drug Service
 
 This is a server node with typescript for the capstone medicify project, this service is used to retrieve drug data in the database
@@ -15,6 +14,18 @@ Make sure you have the following software installed locally before running this 
 ```bash
   git clone https://github.com/Medicify/drug-service.git
   yarn isntall
+```
+
+## Prisma
+
+note:
+
+- import sql table from https://github.com/Medicify/scraping-service
+- before you run development or production runtime, make sure prisma has been generated
+
+```bash
+  yarn prisma db pull
+  yarn prisma generate
 ```
 
 ## Development Mode
