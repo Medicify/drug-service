@@ -20,7 +20,7 @@ Make sure you have the following software installed locally before running this 
 
 note:
 
-- import sql table from https://github.com/Medicify/scraping-service
+- import sql table from https://github.com/Medicify/scraping-service/blob/master/drug_capstone.sql
 - before you run development or production runtime, make sure prisma has been generated
 
 ```bash
