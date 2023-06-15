@@ -1,3 +1,4 @@
+
 # Node Typescript Drug Service
 
 This is a server node with typescript for the capstone medicify project, this service is used to retrieve drug data in the database
@@ -13,7 +14,7 @@ Make sure you have the following software installed locally before running this 
 
 ```bash
   git clone https://github.com/Medicify/drug-service.git
-  yarn install
+  yarn isntall
 ```
 
 ## Development Mode
@@ -291,17 +292,6 @@ Example Response
       "prev": null
     },
     "data": [ example data] }}
-```
-
-## postman
-
-```
-
-import postman_collection and postman_environment to your postman workspace
-make sure your environment is postman_environment
-
-run collections make 1 iteration or more
-
 ```
 
 ## Documentation
