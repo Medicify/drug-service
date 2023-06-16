@@ -13,7 +13,7 @@ Make sure you have the following software installed locally before running this 
 
 ```bash
   git clone https://github.com/Medicify/drug-service.git
-  yarn isntall
+  yarn install
 ```
 
 ## Prisma
